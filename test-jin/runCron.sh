@@ -1,0 +1,1 @@
+*/1 * * * * /usr/bin/curl http://localhost:8082/rss
