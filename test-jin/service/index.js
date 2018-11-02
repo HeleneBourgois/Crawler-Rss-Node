@@ -6,8 +6,6 @@ import router from './src/router'
 export const app = express()
 app.use(bodyParser.json())
 
-
 app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+  console.log(`Worker listening on port ${port}!`)
 })
-

@@ -6,16 +6,33 @@ const create = (req) => {
             if (!req.body) {
                 return reject({ message: 'Nothing to save' })
             }
-            const obj = {
-                title: req.body.title,
-                link: req.body.link,
-                pubDate: new Date(req.body.isoDate),
-                content: req.body.content,
-                _createdAt: new Date()
+            const articles = [...req.body]
+
+            const tasks = []
+
+            for (const article of articles) {
+                if (article.link) {
+                    const articleFound = await Article.findOne({ link: article.link })
+                    if (!articleFound) {
+                        const task = { 
+                            insertOne : {
+                                document : {
+                                    title: article.title,
+                                    link: article.link,
+                                    pubDate: new Date(article.isoDate),
+                                    content: article.content,
+                                    _createdAt: new Date()
+                                }
+                            }
+                        }
+                        tasks.push(task)
+                    }
+                }
             }
-            const newObject = new Article(obj)
-            await newObject.save()
-            return resolve({ response: 'Article creation OK' })
+            if (tasks.length > 0) {
+                await Article.bulkWrite(tasks)
+            }
+            return resolve({ response: 'Articles saved' })
         } catch (err) {
             return reject(err)
         }
