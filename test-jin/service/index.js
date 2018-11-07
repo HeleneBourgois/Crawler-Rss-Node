@@ -7,5 +7,5 @@ export const app = express()
 app.use(bodyParser.json())
 
 app.listen(port, () => {
-  console.log(`Worker listening on port ${port}!`)
+  console.log(`Service listening on port ${port}!`)
 })
