@@ -1,5 +1,7 @@
 # jin
 
+This project has two servers because it was requested for the test.
+
 First version ===> 
 To launch this project, call the install.sh script.
 In the first terminal, you will call startService.sh script.
